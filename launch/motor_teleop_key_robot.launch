@@ -1,0 +1,9 @@
+<launch>
+
+	<!-- ROS nodes (motor_drive) -->
+	<include file="$(find fish_rov_ocean_rubbish_collector)/launch/motor_robot.launch" />
+
+	<!-- ROS nodes (teleop_key) -->
+	<include file="$(find fish_rov_ocean_rubbish_collector)/launch/teleop_key_robot.launch" />
+
+</launch>
