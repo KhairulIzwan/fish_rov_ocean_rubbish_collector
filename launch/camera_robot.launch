@@ -5,6 +5,15 @@
 		name="raspicam_node_robot" 
 		type="raspicam_node" 
 		output="screen">
+
+		<param name="framerate" value="90" />
+		<param name="camera_frame_id" value="0" />
+		<param name="frame_id" value="camera_primer" />
+		<param name="width" value="320" />
+		<param name="height" value="240" />
+		<param name="quality" value="100" />
+		<param name="enable_imv" value="0" />
+
 	</node>
 
 </launch>
