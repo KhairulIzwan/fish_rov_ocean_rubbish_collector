@@ -1,0 +1,10 @@
+<launch>
+
+	<!-- ROS nodes (motor_drive) -->
+	<node	pkg="fish_rov_ocean_rubbish_collector" 
+		name="motor_drive_robot" 
+		type="motor_drive.py" 
+		output="screen">
+	</node>
+
+</launch>
