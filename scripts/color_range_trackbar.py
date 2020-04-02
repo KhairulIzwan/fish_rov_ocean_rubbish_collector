@@ -41,26 +41,26 @@ class range_detector_node:
 		self.bridge = CvBridge()
 
 		# Subscribe to the raw camera image topic
-		self.imgRaw_sub = rospy.Subscriber("/raspicam_node_robot/image/compressed", CompressedImage, self.callback, queue_size=10)
+		self.imgRaw_sub = rospy.Subscriber("/raspicam_node_robot/image/compressed", CompressedImage, self.callback, queue_size=1)
 
 	def callback(self, data):
 		# Convert the raw image to OpenCV format
 		self.cvtImage(data)
 
 		# Determine the range_filter using the setup_trackbars() helper function
-		# self.setup_trackbars()
+		self.setup_trackbars()
 
 		# Convert the image colorspace
-		# self.cvtColorspace()
+		self.cvtColorspace()
 
 		# Extract the require color value
-		# self.get_trackbar_values()
+		self.get_trackbar_values()
 
 		# Publish Data
 		# self.pubData()
 
 		# Threshold the image
-		# self.imgThresh()
+		self.imgThresh()
 
 		# Refresh the image on the screen
 		self.displayImg()
@@ -110,8 +110,9 @@ class range_detector_node:
 
 	""" Refresh the image on the screen """
 	def displayImg(self):
-		cv2.imshow(self.cv_window_name, self.cv_image)
-		cv2.imshow(self.cv_window_trackbar, self.img)
+		# cv2.imshow(self.cv_window_name, self.cv_image)
+		# cv2.imshow(self.cv_window_trackbar, self.img)
+		cv2.imshow(self.cv_window_trackbar, self.cv_image)
 		cv2.waitKey(1)
 
 	def imgThresh(self):
