@@ -23,19 +23,19 @@ import numpy as np
 
 import cv2
 
-class range_detector_node:
+class trackbar_control_node:
 	def __init__(self):
-		self.filter = "HSV"
+		self.filter = "HS"
 		
 		self.img = np.zeros((240,320,3), np.uint8)
 
 		# Initializing your ROS Node
-		rospy.init_node('color_range_node', anonymous=True)
+		rospy.init_node('trackbar_control_node', anonymous=True)
 
 		rospy.on_shutdown(self.shutdown)
 
 		# Give the OpenCV display window a name
-		self.cv_window_name = "Color Range Apps Node"
+		self.cv_window_name = "ROV Apps Node"
 
 		# Create the cv_bridge object
 		self.bridge = CvBridge()
@@ -60,7 +60,7 @@ class range_detector_node:
 		# self.pubData()
 
 		# Threshold the image
-		self.imgThresh()
+		# self.imgThresh()
 
 		# Refresh the image on the screen
 		self.displayImg()
@@ -87,10 +87,10 @@ class range_detector_node:
 		cv2.namedWindow(self.cv_window_trackbar, 0)
 
 		for i in ["MIN", "MAX"]:
-			v = 0 if i == "MIN" else 255
+			v = -1 if i == "MIN" else 1
 
 			for j in self.filter.upper():
-				cv2.createTrackbar("%s_%s" % (j, i), self.cv_window_trackbar, v, 255, self.callback_trackbars)
+				cv2.createTrackbar("%s_%s" % (j, i), self.cv_window_trackbar, v, 1, self.callback_trackbars)
 
 	def callback_trackbars(self, value):
 		pass
@@ -137,7 +137,7 @@ class range_detector_node:
 			cv2.destroyAllWindows()
 
 def main(args):
-	vn = range_detector_node()
+	vn = trackbar_control_node()
 
 	try:
 		rospy.spin()

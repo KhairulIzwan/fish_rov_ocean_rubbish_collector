@@ -3,13 +3,10 @@
 	<!-- ROS launch (motor_robot) -->
 	<include file="$(find fish_rov_ocean_rubbish_collector)/launch/motor_robot.launch" />
 
-	<!-- ROS launch (teleop_key_robot) -->
-	<include file="$(find fish_rov_ocean_rubbish_collector)/launch/teleop_key_robot.launch" />
-
 	<!-- ROS launch (camera_robot) -->
 	<include file="$(find fish_rov_ocean_rubbish_collector)/launch/camera_robot.launch" />
 
-	<!-- ROS launch (preview_robot) -->
-	<include file="$(find fish_rov_ocean_rubbish_collector)/launch/preview_robot.launch" />
+	<!-- ROS launch (trackbar_control_robot) -->
+	<include file="$(find fish_rov_ocean_rubbish_collector)/launch/trackbar_control_robot.launch" />
 
 </launch>

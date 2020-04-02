@@ -1,0 +1,10 @@
+<launch>
+
+	<!-- ROS nodes (trackbar_control) -->
+	<node	pkg="fish_rov_ocean_rubbish_collector" 
+		name="trackbar_control_robot" 
+		type="trackbar_control.py" 
+		output="screen">
+	</node>
+
+</launch>
