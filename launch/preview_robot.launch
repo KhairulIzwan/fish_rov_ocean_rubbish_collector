@@ -1,0 +1,10 @@
+<launch>
+
+	<!-- ROS nodes (preview) -->
+	<node	pkg="fish_rov_ocean_rubbish_collector" 
+		name="preview_robot" 
+		type="preview.py" 
+		output="screen">
+	</node>
+
+</launch>
