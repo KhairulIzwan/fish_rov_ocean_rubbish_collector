@@ -27,7 +27,7 @@ class preview_node:
 		rospy.on_shutdown(self.shutdown)
 
 		# Give the OpenCV display window a name
-		self.cv_window_name = "Camera Preview"
+		self.cv_window_name = "Camera Stream"
 
 		# Create the cv_bridge object
 		self.bridge = CvBridge()
@@ -52,7 +52,7 @@ class preview_node:
 	def getCameraInfo(self):
 		self.image_width = rospy.get_param("/raspicam_node_robot/width") 
 		self.image_height = rospy.get_param("/raspicam_node_robot/height") 
-
+		rospy.set_param("/raspicam_node_robot/brightness", 100)
 	# Convert the raw image to OpenCV format
 	def cvtImage(self, data):
 		try:
@@ -74,7 +74,7 @@ class preview_node:
 	def textInfo(self):
 		img = self.cv_image
 
-		text = "Sample"
+		text = "Online"
 		org = (10, self.image_height - 10)
 
 		fontFace = cv2.FONT_HERSHEY_DUPLEX

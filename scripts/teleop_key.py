@@ -28,7 +28,7 @@ LIN_VEL_STEP_SIZE = 0.01
 ANG_VEL_STEP_SIZE = 0.1
 
 msg = """
-Control Your Tank!
+Control Your Fish!
 ---------------------------
 Moving around:
         w
