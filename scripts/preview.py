@@ -10,7 +10,6 @@ import imutils
 
 from std_msgs.msg import String
 from sensor_msgs.msg import CompressedImage
-from sensor_msgs.msg import CameraInfo
 
 from cv_bridge import CvBridge
 from cv_bridge import CvBridgeError
@@ -20,35 +19,7 @@ import numpy as np
 import cv2
 
 class preview_node:
-	# def __init__(self, gamma, alpha, beta):
 	def __init__(self):
-		# self.gamma = float(gamma)
-		# self.alpha = float(alpha)
-		# self.beta = float(beta)
-		self.gamma = float(100)
-		self.alpha = float(100)
-		self.beta = float(0)
-
-		if self.gamma > 0:
-			self.gamma = float(self.gamma / 100)
-		else:
-			self.gamma = 0.01
-
-		# TODO:
-		# if self.ksize <= 3:
-		# 	self.ksize = 3
-		# else:
-		#	self.ksize = self.ksize
-
-		if self.alpha > 0:
-			self.alpha = float(self.alpha / 100)
-		else:
-			self.alpha = 0.01
-
-		if self.beta > 0:
-			self.beta = float(self.beta / 100)
-		else:
-			self.beta = 0.01
 
 		# Initializing your ROS Node
 		rospy.init_node('preview_node', anonymous=True)
@@ -63,9 +34,6 @@ class preview_node:
 
 		# Subscribe to the raw camera image topic
 		self.imgRaw_sub = rospy.Subscriber("/raspicam_node_robot/image/compressed", CompressedImage, self.callback, queue_size=10)
-
-		# Subscribe to the camera info topic
-		# self.imgInfo_sub = rospy.Subscriber("/raspicam_node_robot/camera_info", CameraInfo, self.getCameraInfo)
 
 	def callback(self,data):
 		# Convert the raw image to OpenCV format
@@ -95,32 +63,12 @@ class preview_node:
 			self.cv_image = np.fromstring(data.data, np.uint8)
 			self.cv_image = cv2.imdecode(self.cv_image, cv2.IMREAD_COLOR)
 
-			# self.adjust_gamma()
-			# self.sharpImg()
-
 			# OTIONAL -- image-rotate """
 			#self.cv_image = imutils.rotate(self.cv_image, angle=180)
 			self.cv_image_copy = self.cv_image.copy()
 
 		except CvBridgeError as e:
 			print(e)
-
-	def adjust_gamma(self):
-		# build a lookup table mapping the pixel values [0, 255] to their adjusted gamma values """
-		self.invGamma = 1.0 / self.gamma
-
-		self.table = np.array([((i / 255.0) ** self.invGamma) * 255 for i in np.arange(0, 256)]).astype("uint8")
-
-		# apply gamma correction using the lookup table """
-		self.adjusted = cv2.LUT(self.cv_image, self.table)
-
-	def sharpImg(self):
-		# apply guassian blur on src image
-		self.blurred = cv2.GaussianBlur(self.adjusted, (5, 5), cv2.BORDER_DEFAULT)
-		self.sharpen = cv2.addWeighted(self.adjusted, self.alpha, self.blurred, -self.beta, self.gamma)
-
-		# copying sharpen image
-		self.cv_image = self.sharpen
 
 	# Overlay some text onto the image display
 	def textInfo(self):
@@ -158,7 +106,6 @@ def usage():
     print("%s" % sys.argv[0])
 
 def main(args):
-	# tvn = tank_vision_node(sys.argv[1], sys.argv[2], sys.argv[3])
 	vn = preview_node()
 
 	try:
@@ -169,9 +116,5 @@ def main(args):
 	cv2.destroyAllWindows()
 
 if __name__ == '__main__':
-	# if len(sys.argv) < 1:
-	# 	print(usage())
-	# 	sys.exit(1)
-	# else:
 	rospy.loginfo("preview_node [ONLINE]...")
 	main(sys.argv)
