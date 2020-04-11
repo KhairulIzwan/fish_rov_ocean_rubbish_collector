@@ -64,7 +64,7 @@ class preview_node:
 			self.cv_image = cv2.imdecode(self.cv_image, cv2.IMREAD_COLOR)
 
 			# OTIONAL -- image-rotate """
-			#self.cv_image = imutils.rotate(self.cv_image, angle=180)
+			self.cv_image = imutils.rotate(self.cv_image, angle=180)
 			self.cv_image_copy = self.cv_image.copy()
 
 		except CvBridgeError as e:
@@ -78,7 +78,7 @@ class preview_node:
 		org = (10, self.image_height - 10)
 
 		fontFace = cv2.FONT_HERSHEY_DUPLEX
-		fontScale = 0.5
+		fontScale = 0.1
 		color = (255, 255, 255)
 		thickness = 1
 		lineType = cv2.LINE_AA
